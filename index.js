@@ -39,7 +39,7 @@ const Events = new mongoose.model("event", eventSchema);
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/calendar"
+    callbackURL: "https://serene-cliffs-75189.herokuapp.com/auth/google/calendar"
   },
   function(accessToken, refreshToken, profile,calendarData, cb) {
     console.log("calendar Data",calendarData);
