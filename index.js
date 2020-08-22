@@ -64,8 +64,10 @@ passport.serializeUser(function(user, done) {
 app.get('/',(req,res)=>{
     if(req.isAuthenticated()){
         res.send(data);
+    }else{
+        res.render('login');
     }
-res.render('login');
+
 })
 app.get('/auth/google',
   passport.authenticate('google', {
