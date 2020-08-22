@@ -41,7 +41,7 @@ passport.use(new GoogleStrategy({
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "https://serene-cliffs-75189.herokuapp.com/auth/google/calendar"
   },
-  function(accessToken, refreshToken, profile,calendarData, cb) {
+  function(accessToken, refreshToken, profile, cb) {
     data=calendarData;
     Events.findOrCreate({
         events: calendarData,
@@ -60,7 +60,7 @@ res.render('login');
 })
 app.get('/auth/google',
   passport.authenticate('google', {
-    scope: ['profile','https://www.googleapis.com/auth/calendar.events.readonly']
+    scope: ['profile']
 }));
 app.get('/auth/google/calendar',
   passport.authenticate('google', {
