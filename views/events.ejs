@@ -1,12 +1,13 @@
 
 
 <% events.map(function(value){ %>
+    <hr size="4"/>
     <div>
         <div style="display: inline-block; width:20%"> <%= value.start.dateTime %> </div>
         <div style="display:inline-block;width:75%;">
-        <p style="font-weight: bolder;"><%= value.summary %></p>
-        <p style="font-weight: lighter;"><%= value.description %></p>
-    </div>
+            <p style="font-weight: bolder;"><%= value.summary %></p>
+            <p style="font-weight: lighter;"><%= value.description %></p>
+        </div>
     </div>
     
 <%})%>
