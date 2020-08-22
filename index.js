@@ -78,14 +78,14 @@ app.get('/',(req,res)=>{
             orderBy: 'startTime',
           }, (err, respo) => {
             if (err) return console.log('The API returned an error: ' + err);
-            const events = respo.data.items;
+            const events = res.data.items;
             if (events.length) {
               console.log('Upcoming 10 events:');
               events.map((event, i) => {
                 const start = event.start.dateTime || event.start.date;
                 e.push(`${start} - ${event.summary}`);
               });
-              res.send(e);
+              res.render('events',{events});
             } else {
               console.log('No upcoming events found.');
               res.send('No Up Coming Events');
