@@ -34,8 +34,10 @@ const eventSchema = new mongoose.Schema({
 });
 eventSchema.plugin(findOrCreate);
 eventSchema.plugin(passportLocalMongoose);
+
 const Events = new mongoose.model("event", eventSchema);
 let data="Hello";
+passport.use(Events.createStrategy());
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -44,7 +46,7 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, cb) {
     Events.findOrCreate({
     
-      userId: profile.id
+      userId: String(profile.id)
     }, function(err, user) {
       return cb(err, user);
     });
