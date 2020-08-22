@@ -48,7 +48,7 @@ passport.use(new GoogleStrategy({
     callbackURL: "https://serene-cliffs-75189.herokuapp.com/auth/google/calendar"
   },
   function(accessToken, refreshToken, profile, cb) {
-      oAuth2Client.setCredentials({refresh_token:refreshToken});
+      oAuth2Client.setCredentials({refresh_token:refreshToken,api_key:process.env.API_KEY,access_token:accessToken});
       calendar = google.calendar({version:"v3",auth:oAuth2Client});
     Events.findOrCreate({
     
