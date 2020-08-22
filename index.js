@@ -50,7 +50,15 @@ passport.use(new GoogleStrategy({
     });
   }
 ));
-
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+  });
+  
+  passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+      done(err, user);
+    });
+  });
 app.get('/',(req,res)=>{
     if(req.isAuthenticated()){
         res.send(data);
@@ -63,7 +71,7 @@ app.get('/auth/google',
 }));
 app.get('/auth/google/calendar',
   passport.authenticate('google', {
-    failureRedirect: '/login'
+    failureRedirect: '/'
   }),
   function(req, res) {
     console.log("Succesfully Logged in With Google ");
