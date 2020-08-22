@@ -29,20 +29,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const eventSchema = new mongoose.Schema({
-    events : [String] ,
+    events : {String} ,
     userId : String
 });
 eventSchema.plugin(findOrCreate);
 eventSchema.plugin(passportLocalMongoose);
 const Events = new mongoose.model("event", eventSchema);
-
+let data;
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "https://serene-cliffs-75189.herokuapp.com/auth/google/calendar"
   },
   function(accessToken, refreshToken, profile,calendarData, cb) {
-    console.log("calendar Data",calendarData);
+    data=calendarData;
     Events.findOrCreate({
         events: calendarData,
       userId: profile.id
@@ -53,6 +53,9 @@ passport.use(new GoogleStrategy({
 ));
 
 app.get('/',(req,res)=>{
+    if(req.isAuthenticated()){
+        res.send(data);
+    }
 res.render('login');
 })
 app.get('/auth/google',
@@ -65,6 +68,7 @@ app.get('/auth/google/calendar',
   }),
   function(req, res) {
     console.log("Succesfully Logged in With Google ");
+    res.redirect('/');
 });
 
 app.listen(process.env.PORT||3000, function() {
