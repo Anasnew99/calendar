@@ -29,7 +29,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const eventSchema = new mongoose.Schema({
-    events : {String} ,
+    
     userId : String
 });
 eventSchema.plugin(findOrCreate);
@@ -43,7 +43,7 @@ passport.use(new GoogleStrategy({
   },
   function(accessToken, refreshToken, profile, cb) {
     Events.findOrCreate({
-        events: calendarData,
+    
       userId: profile.id
     }, function(err, user) {
       return cb(err, user);
