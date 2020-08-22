@@ -73,7 +73,7 @@ app.get('/',(req,res)=>{
         calendar.events.list({
             calendarId: 'primary',
             timeMin: (new Date()).toISOString(),
-            maxResults: 10,
+            maxResults: 5,
             singleEvents: true,
             orderBy: 'startTime',
           }, (err, respo) => {
@@ -81,10 +81,7 @@ app.get('/',(req,res)=>{
             const events = respo.data.items;
             if (events.length) {
               console.log('Upcoming 10 events:');
-              events.map((event, i) => {
-                const start = event.start.dateTime || event.start.date;
-                e.push(`${start} - ${event.summary}`);
-              });
+              
               res.render('events',{events});
             } else {
               console.log('No upcoming events found.');
@@ -109,6 +106,10 @@ app.get('/auth/google/calendar',
   function(req, res) {
     console.log("Succesfully Logged in With Google ");
     res.redirect('/');
+});
+app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/");
 });
 
 app.listen(process.env.PORT||3000, function() {

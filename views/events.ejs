@@ -1,9 +1,14 @@
+
+
 <% events.map(function(value){ %>
-    <div class="time" style="display: inline-block; width:100px"> <%= value.start.dateTime %> </div>
-    <div class="msg" style="display:inline-block;width:300px;">
-        <p class="summary"><%= value.summary %></p>
-        <p class="desc"><%= value.description %></p>
+    <div>
+        <div style="display: inline-block; width:20%"> <%= value.start.dateTime %> </div>
+        <div style="display:inline-block;width:75%;">
+        <p style="font-weight: bolder;"><%= value.summary %></p>
+        <p style="font-weight: lighter;"><%= value.description %></p>
     </div>
+    </div>
+    
 <%})%>
 
 <a style="display:block;" href="/logout">Logout</a>
