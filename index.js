@@ -35,14 +35,13 @@ const eventSchema = new mongoose.Schema({
 eventSchema.plugin(findOrCreate);
 eventSchema.plugin(passportLocalMongoose);
 const Events = new mongoose.model("event", eventSchema);
-let data;
+let data="Hello";
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "https://serene-cliffs-75189.herokuapp.com/auth/google/calendar"
   },
   function(accessToken, refreshToken, profile, cb) {
-    data=calendarData;
     Events.findOrCreate({
         events: calendarData,
       userId: profile.id
