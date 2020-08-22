@@ -85,12 +85,14 @@ app.get('/',(req,res)=>{
                 const start = event.start.dateTime || event.start.date;
                 e.push(`${start} - ${event.summary}`);
               });
+              res.send(e);
             } else {
               console.log('No upcoming events found.');
+              res.send('No Up Coming Events');
             }
           });
         
-        res.send(e);
+    
     }else{
         res.render('login');
     }
