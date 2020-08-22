@@ -67,27 +67,30 @@ passport.serializeUser(function(user, done) {
       done(err, user);
     });
   });
+  let e = [];
 app.get('/',(req,res)=>{
     if(req.isAuthenticated()){
-        var event = {
-            'summary': 'Google I/O 2015',
-            'location': '800 Howard St., San Francisco, CA 94103',
-            'description': 'A chance to hear more about Google\'s developer products.',
-            'start': {
-              'dateTime': '2015-05-28T09:00:00-07:00',
-              'timeZone': 'America/Los_Angeles',
-            },
-            'end': {
-              'dateTime': '2015-05-28T17:00:00-07:00',
-              'timeZone': 'America/Los_Angeles',
+        calendar.events.list({
+            calendarId: 'primary',
+            timeMin: (new Date()).toISOString(),
+            maxResults: 10,
+            singleEvents: true,
+            orderBy: 'startTime',
+          }, (err, res) => {
+            if (err) return console.log('The API returned an error: ' + err);
+            const events = res.data.items;
+            if (events.length) {
+              console.log('Upcoming 10 events:');
+              events.map((event, i) => {
+                const start = event.start.dateTime || event.start.date;
+                e.push(`${start} - ${event.summary}`);
+              });
+            } else {
+              console.log('No upcoming events found.');
             }
-        }
-        calendar.events.insert(event,(err,event)=>{
-            if(!err){
-                console.log("Wroked",event.htmlLink);
-            }
-        });
-        res.send(calendar.events.get());
+          });
+        
+        res.send(e);
     }else{
         res.render('login');
     }
