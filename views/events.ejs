@@ -1,15 +1,20 @@
 
-
-<% events.map(function(value){ %>
-    <hr size="4"/>
-    <div>
-        <div style="display: inline-block; width:20%"> <%= value.start.dateTime %> </div>
-        <div style="display:inline-block;width:75%;">
-            <p style="font-weight: bolder;"><%= value.summary %></p>
-            <p style="font-weight: lighter;"><%= value.description %></p>
+<% if(events) { %>
+    <% events.map(function(value){ %>
+        <hr size="4"/>
+        <div>
+            <div style="display: inline-block; width:20%"> <%= value.start.dateTime %> </div>
+            <div style="display:inline-block;width:75%;">
+                <p style="font-weight: bolder;"><%= value.summary %></p>
+                <p style="font-weight: lighter;"><%= value.description %></p>
+            </div>
         </div>
-    </div>
-    
-<%})%>
+        
+    <%})%>
+
+<% }else{ %>
+<p>"No record Found"</p>
+<%} %>
+
 <hr size="4"/>
 <a style="display:block;" href="/logout">Logout</a>

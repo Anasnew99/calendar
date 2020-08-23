@@ -37,7 +37,7 @@ const eventSchema = new mongoose.Schema({
     username : String
 });
 eventSchema.plugin(findOrCreate);
-eventSchema.plugin(passportLocalMongoose,);
+eventSchema.plugin(passportLocalMongoose);
 
 const Events = new mongoose.model("event", eventSchema);
 let data="Hello";
@@ -73,19 +73,18 @@ app.get('/',(req,res)=>{
         calendar.events.list({
             calendarId: 'primary',
             timeMin: (new Date()).toISOString(),
-            maxResults: 5,
             singleEvents: true,
             orderBy: 'startTime',
           }, (err, respo) => {
             if (err) return console.log('The API returned an error: ' + err);
             const events = respo.data.items;
             if (events.length) {
-              console.log('Upcoming 10 events:');
+              console.log('Upcoming events:');
               
               res.render('events',{events});
             } else {
               console.log('No upcoming events found.');
-              res.send('No Up Coming Events');
+              res.render('events');
             }
           });
         
