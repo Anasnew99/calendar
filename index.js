@@ -41,7 +41,7 @@ eventSchema.plugin(findOrCreate);
 
 const Events = new mongoose.model("event", eventSchema);
 let data="Hello";
-passport.use(Events.createStrategy());
+// passport.use(Events.createStrategy());
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
