@@ -37,7 +37,7 @@ const eventSchema = new mongoose.Schema({
     userId : String
 });
 eventSchema.plugin(findOrCreate);
-eventSchema.plugin(passportLocalMongoose,{usernameField:'userId',useernameUnique:false});
+eventSchema.plugin(passportLocalMongoose,{usernameField:'userId',usernameUnique:false});
 
 const Events = new mongoose.model("event", eventSchema);
 let data="Hello";
