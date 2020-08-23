@@ -34,10 +34,10 @@ app.use(passport.session());
 
 const eventSchema = new mongoose.Schema({
     
-    userId : String
+    username : String
 });
 eventSchema.plugin(findOrCreate);
-eventSchema.plugin(passportLocalMongoose,{usernameField:'userId',usernameUnique:false});
+eventSchema.plugin(passportLocalMongoose,);
 
 const Events = new mongoose.model("event", eventSchema);
 let data="Hello";
@@ -52,7 +52,7 @@ passport.use(new GoogleStrategy({
       calendar = google.calendar({version:"v3",auth:oAuth2Client});
     Events.findOrCreate({
     
-      userId: String(profile.id)
+      username: String(profile.id)
     }, function(err, user) {
       return cb(err, user);
     });
