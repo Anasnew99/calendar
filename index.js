@@ -37,11 +37,11 @@ const eventSchema = new mongoose.Schema({
     userId : String
 });
 eventSchema.plugin(findOrCreate);
-// eventSchema.plugin(passportLocalMongoose);
+eventSchema.plugin(passportLocalMongoose,{usernameField:'userId'});
 
 const Events = new mongoose.model("event", eventSchema);
 let data="Hello";
-// passport.use(Events.createStrategy());
+passport.use(Events.createStrategy());
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
