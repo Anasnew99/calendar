@@ -84,7 +84,7 @@ app.get('/',(req,res)=>{
               res.render('events',{events});
             } else {
               console.log('No upcoming events found.');
-              res.render('events');
+              res.render('events',{events:null});
             }
           });
         
